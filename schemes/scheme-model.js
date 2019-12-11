@@ -8,6 +8,7 @@ module.exports = {
     findSteps,
     add,
     remove,
+    update
 }
 
 function find(){
@@ -27,6 +28,18 @@ function findSteps(id){
     .join({ s: "schemes" }, "st.scheme_id", "=", "s.id")
     .where("st.scheme_id", "=", id)
     .orderBy("st.step_number");
+}
+
+function update(changes, id){
+    return db("schemes")
+    .where("id", "=", id)
+    .update(changes)
+    .then(() => {
+        return findById(id);
+    })
+    
+    
+
 }
 
 function add(scheme) {
